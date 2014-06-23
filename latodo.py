@@ -42,35 +42,12 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     task = db.Column(db.String(120))
     timestamp = db.Column(db.DateTime)
-    list_id = db.Column(db.Integer, db.ForeignKey('list.id'))
 
     def __init__(self, task, list_id):
         pass
 
     def __unicode__(self):
         return self.item
-
-
-class List(db.Model):
-    ___tablename__ = 'Lists'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(40), unique=True)
-    description = db.Column(db.Text)
-    pub_date = db.Column(db.DateTime)
-    date_updated = db.Column(db.DateTime)
-    items = db.relationship('Todo', backref='list', lazy='dynamic')
-
-    def __unicode__(self):
-        return self.name
-
-    def slug(self):  # flask.pocoo.org/snippets/5/
-        punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
-        result = []
-        for word in punct_re.split(self.name.lower()):
-            word = word.encode('translit/long')
-            if word:
-                result.append(word)
-        return unicode(u'-'.join(result))
 
 
 # Database functions ----------------------------------------------------------
