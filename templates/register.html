@@ -2,17 +2,19 @@
 
 {% block body %}
 
-    <form method='POST'>
-        <input type='hidden' name='_csrf_token' value='{{ csrf_token() }}'>
-        Username:
-        <br><input type='text' size=40 name='username'>
-        <br>Password:
-        <br><input type='password' size=40 name='password'>
-        <br><input type='submit' value='Register'>
-    </form>
+    <div class='container'>
 
-    {% for message in get_flashed_messages() %}
-    <div class='flash'>{{ message }}</div>
-    {% endfor %}
+        <form class='entrance' method='POST'>
+            <input type='hidden' name='_csrf_token' value='{{ csrf_token() }}'>
+            <br><input type='text' name='username' placeholder='username'>
+            <br><input type='password' name='password' placeholder='password'>
+            <br><input type='submit' value='Register'>
+        </form>
+
+        {% for message in get_flashed_messages() %}
+        <div class='flash'>{{ message }}</div>
+        {% endfor %}
+
+    </div>
 
 {% endblock %}

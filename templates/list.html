@@ -14,19 +14,25 @@
 
     </script>
 
-    <div class='la-todo-liste'>la todo liste</div>
+    <div class='container'>
 
-    <form class='list' method='POST'>
-        <input type='hidden' name='_csrf_token' value='{{ csrf_token() }}'>
-        <input type='text' size=44 class='todo' id='todo' name='todo'>
-        <input type='submit' value='what to get done?'>
-    </form>
+        <div class='la-todo-liste'>la todo liste</div>
 
-    <ul id='turtles'>
-    {% for item in items %}
-        {% set url = url_for('delete_view', id=item.id) %}
-        <li onclick='donit({{ url|tojson }})'>{{ item.item }}</li>
-    {% endfor %}
-    </ul>
+        <form class='list' method='POST'>
+            <input type='hidden' name='_csrf_token' value='{{ csrf_token() }}'>
+            <div class='row add-todo'>
+                <input type='text' class='todo xs-col-12 md-col-6' id='todo' name='todo'>
+                <input type='submit' class='todo-submit xs-col-12 md-col-6'value='what to get done?'>
+            </div>
+        </form>
+
+        <ul id='turtles'>
+        {% for item in items %}
+            {% set url = url_for('delete_view', id=item.id) %}
+            <li onclick='donit({{ url|tojson }})'>{{ item.item }}</li>
+        {% endfor %}
+        </ul>
+
+    </div>
 
 {% endblock %}

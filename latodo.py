@@ -7,6 +7,8 @@ from flask.ext.script import Manager
 from flask.ext.seasurf import SeaSurf
 from flask.ext.sqlalchemy import SQLAlchemy
 from functools import wraps
+from sqlalchemy.exc import IntegrityError
+
 
 app = Flask(__name__, static_folder='static')
 app.config.from_pyfile('config.py')
@@ -53,11 +55,15 @@ class Todo(db.Model):
 
 def materialize_a_mage(username, password):
     if username and password:
-        mage = Mage(username, password)
-        db.session.add(mage)
-        db.session.commit()
-        return mage
-    raise ValueError('Mage is lacking either material or originality.')
+        try:
+            mage = Mage(username, password)
+            db.session.add(mage)
+            db.session.commit()
+            return mage
+        except IntegrityError:
+            raise ValueError('Mage is lacking originality')
+    else:
+        raise ValueError('Mage is lacking material.')
 
 
 def write_item(item):
@@ -66,7 +72,7 @@ def write_item(item):
         db.session.add(todo)
         db.session.commit()
         return todo
-    raise ValueError('Task is either insufficient or overcompensating.')
+    raise ValueError('Item is either insufficient or overcompensating.')
 
 
 def delete_item(id):
@@ -140,7 +146,7 @@ def login_view():
         password = request.form['password']
         if mage is None or not flask_bcrypt.check_password_hash(mage.password,
                                                                 password):
-            flash('Invalid attempt.')
+            flash('Invalid.')
         else:
             session['current_user'] = mage.username
             return redirect(url_for('list_view'))

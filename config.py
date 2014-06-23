@@ -12,4 +12,4 @@ def secret_key():
 PERMANENT_SESSION_LIFETIME = timedelta(weeks=1)
 SECRET_KEY = secret_key()
 SQLALCHEMY_DATABASE_URI = 'postgresql:///latodoliste'
-TESTING = True
+TESTING = False
