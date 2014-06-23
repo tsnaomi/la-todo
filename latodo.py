@@ -83,12 +83,17 @@ def load_items():
 
 # Views -----------------------------------------------------------------------
 
+@app.before_request
+def renew_session():
+    session.modified = True
+
+
 def login_required(x):
     @wraps(x)
     def decorator(*args, **kwargs):
-        if session.get['current_user']:
+        if session.get('current_user'):
             return x(*args, **kwargs)
-        return redirect(url_for('login_view', next=request.url))
+        return redirect(url_for('login_view'))
     return decorator
 
 
@@ -97,7 +102,7 @@ def login_required(x):
 def list_view():
     if request.method == 'POST':
         try:
-            write_item(request.form['title'])
+            write_item(request.form['todo'])
             return redirect(url_for('list_view'))
         except ValueError as E:
             print E
@@ -114,15 +119,15 @@ def delete_view(id):
     return redirect(url_for('list_view'))
 
 
-@app.route('/induct', methods=['GET', 'POST'])
+@app.route('/join', methods=['GET', 'POST'])
 def registration_view():
     if request.method == 'POST':
         try:
             materialize_a_mage(request.form['username'],
                                request.form['password'])
             return redirect(url_for('login_view'))
-        except ValueError as E:
-            print E
+        except ValueError:
+            flash('Unsuccessful.')
     return render_template('register.html')
 
 
@@ -131,7 +136,7 @@ def login_view():
     if session.get('current_user'):
         return redirect(url_for('list_view'))
     if request.method == 'POST':
-        mage = Mage.query.filter_by(username=request.form['username']).one()
+        mage = Mage.query.filter_by(username=request.form['username']).first()
         password = request.form['password']
         if mage is None or not flask_bcrypt.check_password_hash(mage.password,
                                                                 password):

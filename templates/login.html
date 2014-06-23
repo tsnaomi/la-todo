@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <form method='POST'>
+        <input type='hidden' name='_csrf_token' value='{{ csrf_token() }}'>
+        <br><input type='text' size=40 name='username'>
+        <br><input type='password' size=40 name='password'>
+        <br><input type='submit' value='Sign In'>
+    </form>
+
+    {% for message in get_flashed_messages() %}
+    <div class='flash'>{{ message }}</div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+
+        function donit(url)
+        {
+            $("li").on("click",function(){
+                $(this).fadeOut("fast", function(){window.location.href = url});
+            });
+        }
+
+    </script>
+
+    <div class='la-todo-liste'>la todo liste</div>
+
+    <form class='list' method='POST'>
+        <input type='hidden' name='_csrf_token' value='{{ csrf_token() }}'>
+        <input type='text' size=44 class='todo' id='todo' name='todo'>
+        <input type='submit' value='what to get done?'>
+    </form>
+
+    <ul id='turtles'>
+    {% for item in items %}
+        {% set url = url_for('delete_view', id=item.id) %}
+        <li onclick='donit({{ url|tojson }})'>{{ item.item }}</li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
