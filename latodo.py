@@ -24,7 +24,7 @@ flask_bcrypt = Bcrypt(app)
 # Models ----------------------------------------------------------------------
 
 class Mage(db.Model):
-    __tablename__ = 'Administrators'
+    __tablename__ = 'Mages'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), unique=True)
     password = db.Column(db.String(80))
@@ -40,8 +40,12 @@ class Mage(db.Model):
 class Todo(db.Model):
     __tablename__ = 'Items'
     id = db.Column(db.Integer, primary_key=True)
-    item = db.Column(db.String(120))
+    task = db.Column(db.String(120))
+    timestamp = db.Column(db.DateTime)
     list_id = db.Column(db.Integer, db.ForeignKey('list.id'))
+
+    def __init__(self, task, list_id):
+        pass
 
     def __unicode__(self):
         return self.item
@@ -52,7 +56,7 @@ class List(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), unique=True)
     description = db.Column(db.Text)
-    date_created = db.Column(db.DateTime)
+    pub_date = db.Column(db.DateTime)
     date_updated = db.Column(db.DateTime)
     items = db.relationship('Todo', backref='list', lazy='dynamic')
 
@@ -67,3 +71,9 @@ class List(db.Model):
             if word:
                 result.append(word)
         return unicode(u'-'.join(result))
+
+
+# Database functions ----------------------------------------------------------
+
+def load_items():
+    return Todo.query.order_by(Todo.timestamp.desc()).first()
