@@ -1,6 +1,4 @@
-import translitcodec  # necessary for Todo.slug
-import re
-
+from datetime import datetime
 from flask import (
     abort, Flask, redirect, render_template, request, session, url_for
     )
@@ -40,11 +38,12 @@ class Mage(db.Model):
 class Todo(db.Model):
     __tablename__ = 'Items'
     id = db.Column(db.Integer, primary_key=True)
-    task = db.Column(db.String(120))
+    item = db.Column(db.String(120))
     timestamp = db.Column(db.DateTime)
 
-    def __init__(self, task, list_id):
-        pass
+    def __init__(self, item):
+        self.item = item
+        self.timestamp = datetime.utcnow()
 
     def __unicode__(self):
         return self.item
@@ -58,8 +57,17 @@ def materialize_a_mage(username, password):
         db.session.add(mage)
         db.session.commit()
         return mage
-    raise ValueError('Your mage is lacking either material or originality.')
+    raise ValueError('Mage is lacking either material or originality.')
+
+
+def write_item(item):
+    if item and len(item) <= 120:
+        todo = Todo(item)
+        db.session.add(todo)
+        db.session.commit()
+        return todo
+    raise ValueError('Task is either insufficient or overcompensating.')
 
 
 def load_items():
-    return Todo.query.order_by(Todo.timestamp.desc()).first()
+    return Todo.query.order_by(Todo.timestamp.desc()).all()
