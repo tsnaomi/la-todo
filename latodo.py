@@ -52,5 +52,14 @@ class Todo(db.Model):
 
 # Database functions ----------------------------------------------------------
 
+def materialize_a_mage(username, password):
+    if username and password:
+        mage = Mage(username, password)
+        db.session.add(mage)
+        db.session.commit()
+        return mage
+    raise ValueError('Your mage is lacking either material or originality.')
+
+
 def load_items():
     return Todo.query.order_by(Todo.timestamp.desc()).first()
