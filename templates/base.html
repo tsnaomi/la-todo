@@ -5,14 +5,13 @@
     <title>la todo liste</title>
 
     <head>
-        <!-- <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-icon.ico') }}">
-        <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='apple-icon.ico') }}">
-        <link rel='shortcut icon' href="{{ url_for('static', filename='favicon.ico') }}"> -->
+        <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='apple-icon-png') }}">
+        <link rel='shortcut icon' href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Pacifico|EB+Garamond'>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-        <!-- <link rel='stylesheet' href="{{ url_for('static', filename='bootstrap.min.css') }}"> -->
-        <!-- <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}"> -->
-        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.min.css') }}">
+        <!-- <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}"> -->  <!-- development -->
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.min.css') }}">  <!-- production -->
         <meta name='viewport' content='width=device-width, initial-scale=1'>
     </head>
 
@@ -20,10 +19,7 @@
 
     {% block body %}{% endblock %}
 
-    <!-- <script src='//code.jquery.com/jquery-1.11.0.min.js'></script>
-    <script src='//code.jquery.com/jquery-migrate-1.2.1.min.js'></script> -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     </body>
 

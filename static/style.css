@@ -17,19 +17,10 @@ input {
     outline: none;
     border: 1px solid #E0E0E0;
     background: none;
-    height: 30px;
-    padding: 0 0 0 4px;
-    margin: 0 0 4px;
     border-radius: 0px;
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
     -khtml-border-radius: 0px;
-}
-
-input[type='submit'] {
-    font-family: garamond, 'EB Garamond', serif;
-    vertical-align: top;
-    width: 140px;
 }
 
 input:focus,
@@ -44,7 +35,7 @@ a, a:hover {
 
 ul {
     width: 94%;
-    margin: 28px 0;
+    margin: 32px 0;
 }
 
 li {
@@ -55,19 +46,47 @@ li {
 
 .la-todo-liste {
     font-size: 48px;
-    margin: 40px 20px 32px;
+    margin: 40px 20px 37px;
 }
 
 .add-todo {
     margin-left: 40px;
 }
 
-.entrance {
-    margin: 20px 0 0 40px;
+.list {
+    margin-left: 10px;
 }
 
-.entrance > input {
-    width: 180px;
+.list input {
+    height: 32px;
+    padding: 0 0 0 4px;
+    margin: 0 0 4px;
+}
+
+.list input[type='submit'] {
+    font-family: garamond, 'EB Garamond', serif;
+    vertical-align: top;
+    width: 140px;
+    padding: 0px;
+}
+
+.entrance {
+    display: block;
+    text-align: center;
+    margin-top: 80px;
+}
+
+.entrance input {
+    height: 40px;
+    width: 300px;
+    display: inline-block;
+    padding: 0 0 0 5px;
+    margin: 0 0 5px;
+}
+
+.entrance input[type='submit'] {
+    margin-left: -4px;
+    padding: 0px;
 }
 
 .todo {
@@ -76,7 +95,8 @@ li {
 
 .flash {
     font-size: 16px;
-    margin: 30px 40px;
+    text-align: center;
+    margin-top: 36px;
 }
 
 .error {
@@ -91,6 +111,15 @@ li {
     }
 
     .todo {
+        width: 80%;
+    }
+
+    .entrance {
+         margin-top: 40px;
+    }
+
+    .entrance > input {
+        max-width: 300px;
         width: 80%;
     }
 }
