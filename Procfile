@@ -1,4 +1,3 @@
 web: gunicorn latodo:app
-migrate: alembic upgrade head
-upgrade: alembic upgrade +1
-downgrade: alembic downgrade -1
+migrate: python latodo.py db migrate
+upgrade: python latodo.py db upgrade
