@@ -1,6 +1,6 @@
 from datetime import datetime
-from flask import (flash, Flask, redirect, render_template, request, session,
-                   url_for)
+from flask import (abort, flash, Flask, redirect, render_template, request,
+                   session, url_for)
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
@@ -110,8 +110,8 @@ def list_view():
         try:
             write_item(request.form['todo'])
             return redirect(url_for('list_view'))
-        except ValueError as E:
-            print E
+        except ValueError:
+            pass
     return render_template('list.html', items=load_items())
 
 
@@ -120,8 +120,8 @@ def list_view():
 def delete_view(id):
     try:
         delete_item(id)
-    except KeyError as E:
-        print E
+    except KeyError:
+        abort(404)
     return redirect(url_for('list_view'))
 
 
