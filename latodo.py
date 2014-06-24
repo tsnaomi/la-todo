@@ -128,6 +128,11 @@ def delete_view(id):
 @app.route('/join', methods=['GET', 'POST'])
 def registration_view():
     if request.method == 'POST':
+
+        # disabling future mages
+        flash('We\'re not accepting any new users at this time.')
+        return render_template('register.html')
+
         try:
             materialize_a_mage(request.form['username'],
                                request.form['password'])
