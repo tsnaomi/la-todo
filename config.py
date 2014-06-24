@@ -11,7 +11,7 @@ def secret_key():
         secret_key += choice(printable)
     return secret_key
 
-PERMANENT_SESSION_LIFETIME = timedelta(weeks=1)
+PERMANENT_SESSION_LIFETIME = timedelta(hours=14)
 SECRET_KEY = secret_key()
 
 if os.environ.get('DATABASE_URL'):
