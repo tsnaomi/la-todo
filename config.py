@@ -1,3 +1,5 @@
+import os
+
 from datetime import timedelta
 from random import choice
 from string import printable
@@ -11,5 +13,6 @@ def secret_key():
 
 PERMANENT_SESSION_LIFETIME = timedelta(weeks=1)
 SECRET_KEY = secret_key()
-SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'] if \
+    os.environ.get('DATABASE_URL') else 'postgresql:///latodoliste'
 TESTING = False

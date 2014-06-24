@@ -23,7 +23,7 @@ input {
 }
 
 input[type='submit'] {
-    font-family: 'EB Garamond', garamond, serif;
+    font-family: garamond, 'EB Garamond', serif;
     vertical-align: top;
     width: 140px;
 }
